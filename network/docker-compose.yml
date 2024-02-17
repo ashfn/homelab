@@ -1,0 +1,12 @@
+version: "3"
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    env_file: .env
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=windscribe
+      - VPN_TYPE=openvpn
+      - SERVER_REGIONS=United Kingdom
