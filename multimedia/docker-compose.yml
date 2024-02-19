@@ -20,7 +20,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /sonarr:/config
+      - ./sonarr:/config
       - /library:/tv
       - /library:/downloads
     restart: unless-stopped
@@ -35,6 +35,6 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
     volumes:
-      - /qbittorrent:/config
+      - ./qbittorrent:/config
       - /library:/downloads
     restart: unless-stopped
