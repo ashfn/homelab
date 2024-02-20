@@ -1,8 +1,24 @@
 ---
 services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    env_file: .env
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 9696:9696 # Prowlarr GUI
+      - 8989:8989 # Sonarr GUI
+      - 8080:8080 # Qbittorrent GUI access
+      - 6881:6881 # Qbittorrent Torrenting
+      - 6881:6881/udp # Qbittorrent Torrenting
+    environment:
+      - VPN_SERVICE_PROVIDER=windscribe
+      - VPN_TYPE=openvpn
+      - SERVER_REGIONS=United Kingdom
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
-    network_mode: "container:gluetun"
+    network_mode: "service:gluetun"
     container_name: prowlarr
     environment:
       - PUID=1000
@@ -14,7 +30,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    network_mode: "container:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -27,7 +43,7 @@ services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
-    network_mode: "container:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
