@@ -37,8 +37,8 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ./sonarr:/config
-      - /library:/tv
-      - /library:/downloads
+      - ~/library:/tv
+      - ~/library:/downloads
     restart: unless-stopped
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -52,5 +52,5 @@ services:
       - TORRENTING_PORT=6881
     volumes:
       - ./qbittorrent:/config
-      - /library:/downloads
+      - ~/library:/downloads
     restart: unless-stopped
